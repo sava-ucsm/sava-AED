@@ -16,14 +16,17 @@ public class Usuario {
 		this.contrasena = contrasena;
 	}
 	
-	public void validarUsuario(String usuario, String contrasena)
+	public String validarUsuario(String usuario, String contrasena)
 	{
 		if(usuario.equals("Pablo") & contrasena.equals("Pablo123")) 
 		{
-			System.out.print("Acceso permitido "+usuario);
+			String a = ("Acceso permitido " + usuario);
+		return a;
 		}
-		else 
-			System.out.print("Vuelve a logearte");
+		else {
+			String b = "Acceso denegado";
+		return b;
+		}
 	}
 	
 }

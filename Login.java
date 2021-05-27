@@ -8,7 +8,7 @@ public class Login extends JFrame implements ActionListener {
 	private JTextField t2;
 	private JButton BT1;
 	private JButton BT2;
-	
+	String a,b;
 	
 	
 	public Login() {
@@ -36,20 +36,38 @@ public class Login extends JFrame implements ActionListener {
 		add(BT2);
 		BT2.addActionListener(this);
 	}
+	public MenuPrincipal() {
+		
+	}
+	public MenuPersonalSalud() {
+		
+	}
+	public MenuDistribuidor() {
+		
+	}
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource() == BT1) {
+			String nombre="", contra="";
+			Usuario Us = new Usuario();
+			nombre = t1.getText();
+			contra = t2.getText();
+			String resul = Us.validarUsuario(nombre, contra);
+			JOptionPane.showMessageDialog(BT1,resul);
+		}
+		if(e.getSource()==BT2) {
+			t1.setText(null);
+			t2.setText(null);
+		}
+	}
 
 	public static void main(String[] args) {
+		
 		Login login1 = new Login();
 		login1.setBounds(0,0,300,165);
 		login1.setVisible(true);
+		
 		Scanner entrada = new Scanner(System.in); 
-		Usuario Us = new Usuario();
 		
-		System.out.print("Usuario: ");
-		String a = entrada.next();
-		System.out.print("Contraseña: ");
-		String b = entrada.next();
-		
-		Us.validarUsuario(a,b);
 		
 		boolean salir = false;
 		int opcion;
