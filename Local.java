@@ -4,11 +4,11 @@ public class Local {
     private Inventario almacen;
     private  ListLinked<PersonalSalud> personal;
 
-    public Local(Direccion d,String nombre, ListLinked<PersonalSalud> p){
+    public Local(Direccion d,String nombre){
         this.direccion = d;
         this.nombre = nombre;
         this.almacen = new Inventario();
-        this.personal = p;
+        this.personal = new OderListLinked<PersonalSalud>();
     }
     public void agregarPersonal(PersonalSalud p){
 
@@ -42,7 +42,7 @@ public class Local {
     private PersonalSalud findByCode(int codigo){
         Node<PersonalSalud> aux = personal.getFirst();
         for(;aux != null;aux = aux.getNext())
-            if(aux.getData().getCodigo().equals(codigo))
+            if(aux.getData().getIdPersonal()==codigo)
                 return aux.getData();
         return null;
     }
