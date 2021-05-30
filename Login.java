@@ -1,13 +1,9 @@
-import java.util.Scanner;
 import javax.swing.*;
 import java.awt.event.*;
 public class Login extends JFrame implements ActionListener {
-	private JLabel label1;
-	private JLabel label2;
-	private JTextField t1;
-	private JTextField t2;
-	private JButton BT1;
-	private JButton BT2;
+	private JLabel label1, label2;
+	private JTextField t1, t2;
+	private JButton BT1, BT2;
 	String a,b;
 	
 	
@@ -36,24 +32,32 @@ public class Login extends JFrame implements ActionListener {
 		add(BT2);
 		BT2.addActionListener(this);
 	}
-	public MenuPrincipal() {
-		
-	}
-	public MenuPersonalSalud() {
-		
-	}
-	public MenuDistribuidor() {
-		
-	}
+	
+	
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == BT1) {
 			String nombre="", contra="";
 			Usuario Us = new Usuario();
-			nombre = t1.getText();
-			contra = t2.getText();
+			nombre = t1.getText().trim();
+			contra = t2.getText().trim();
 			String resul = Us.validarUsuario(nombre, contra);
 			JOptionPane.showMessageDialog(BT1,resul);
+			if(resul.equals("Acceso denegado"))
+			{
+				
+				JOptionPane.showMessageDialog(null,"vuelve a logearte");
+				t1.setText(null);
+				t2.setText(null);
+			}
+			else {
+				Principal principal1 = new Principal();
+				principal1.setBounds(0,0,400,400);
+				principal1.setVisible(true);
+				this.setVisible(false);
+				
+			}
 		}
+		
 		if(e.getSource()==BT2) {
 			t1.setText(null);
 			t2.setText(null);
@@ -66,40 +70,9 @@ public class Login extends JFrame implements ActionListener {
 		login1.setBounds(0,0,300,165);
 		login1.setVisible(true);
 		
-		Scanner entrada = new Scanner(System.in); 
 		
 		
-		boolean salir = false;
-		int opcion;
-		while(!salir){
-               System.out.println("-----Menu Principal-------");
-	           System.out.println("1. Ver vacunas pendientes ");
-	           System.out.println("2. Opcion 2");
-	           System.out.println("3. Opcion 3");
-	           System.out.println("4. Salir");
-	            
-	           System.out.println("Escribe una de las opciones");
-	           opcion = entrada.nextInt();
-	            
-	           switch(opcion){
-	               case 1:
-	                   System.out.println("Has seleccionado la opcion 1");
-	                   break;
-	               case 2:
-	                   System.out.println("Has seleccionado la opcion 2");
-	                   break;
-	                case 3:
-	                   System.out.println("Has seleccionado la opcion 3");
-	                   break;
-	                case 4:
-	                   salir=true;
-	                   break;
-	                default:
-	                   System.out.println("Solo números entre 1 y 4");
-	           }
-	            
-		 }
-			
+		
 		}
 		
 }
