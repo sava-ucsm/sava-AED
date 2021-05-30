@@ -99,6 +99,8 @@ public class RegistroPaciente extends JFrame implements Registro, ActionListener
 			System.exit(0);
 		}
 		if(e.getSource()== boton2) {
+			
+			
 			String nombre=tf1.getText();
 			String apellido=tf2.getText();
 			String dni=tf3.getText();
@@ -106,10 +108,11 @@ public class RegistroPaciente extends JFrame implements Registro, ActionListener
 			String distrito=tf5.getText();
 			Direccion dir=new Direccion(distrito,ciudad);
 			String telefono=tf6.getText();
-			Paciente p= new Paciente(nombre, apellido, dni,dir ,telefono);
+			
 			if(this.verificarNom(nombre) && this.verificarApellido(apellido)
 		    && this.verificarDni(dni) && this.verificarCiudad(ciudad) 
 		    &&this.verificarDistrito(distrito) && this.verificarTel(telefono)) {
+				Paciente p= new Paciente(nombre, apellido, dni,dir ,telefono);
 				if(!this.existeRegistro(p))
 					GestionPacientes.agregarPaciente(p);
 				else {
