@@ -1,125 +1,104 @@
-//BOX
 public class Inventario{
 	
-	private  Node<Vacuna> first;
-	private int count;
+	private  OrderListLinked<Vacuna> inventarioVacuna;
 
-	
-	public void aumentarStock(Vacuna x, int cant) {
-		Node<Vacuna> aux = this.first;
-		int controlador = 0; 
-		for(int i = 0 ;aux != null ; aux =aux.getNext(),i++) 
-			if (aux.getData().equals(x)) {
-				x.aumentarStock(cant);
-				controlador = 1;
-			}
-		if (controlador == 0 ) {
-			System.out.println("No se aumento Stock ya que no se encontro esa vacuna");
-		}
-	}
-	public void disminuirStock(Vacuna x, int cant) {
-		Node<Vacuna> aux = this.first;
-		int controlador = 0; 
-		for(int i = 0 ;aux != null ; aux =aux.getNext(),i++) 
-			if (aux.getData().equals(x)) {
-				x.disminuirStock(cant);;
-				controlador = 1;
-			}
-		if (controlador == 0 ) {
-			System.out.println("No se disminuyo Stock ya que no se encontro esa vacuna");
-		}		
-	}
-	
-	public void crearNuevaVacuna(Vacuna x) {
-		if(this.isEmptyList()) {
-			this.first = new Node<Vacuna>(x,this.first);
-			this.count++;
+	public void muestraSalidaEntradasGeneral(Vacuna x) {
+		Node<Vacuna> aux = inventarioVacuna.getFirst();
+		int busqueda = inventarioVacuna.search(x);
+		if (busqueda != -1) {
+			for(int i = 0 ;aux != null ; aux =aux.getNext(),i++) 
+				if (aux.getData().equals(x)) {
+					System.out.println(x);
+				}
 		}
 		else {
-			Node<Vacuna> lastNode = getLastNode();
-			lastNode.setNext(new Node<Vacuna>(x));
-			this.count++;
+			System.out.println("No se encontro");
+		}
+		
+	}
+	
+	public void muestrarVacuna(Vacuna x) {
+		Node<Vacuna> aux = inventarioVacuna.getFirst();
+		int busqueda = inventarioVacuna.search(x);
+		if (busqueda != -1) {
+			for(int i = 0 ;aux != null ; aux =aux.getNext(),i++) 
+				if (aux.getData().equals(x)) {
+					System.out.println(x);
+				}
+		}
+		else {
+			System.out.println("No se encontro");
+		}
+		
+	}
+	
+	public void aumentarStock(Vacuna x, int cant) {
+		Node<Vacuna> aux = inventarioVacuna.getFirst();
+		int busqueda = inventarioVacuna.search(x);
+		if (busqueda != -1) {
+			for(int i = 0 ;aux != null ; aux =aux.getNext(),i++) 
+				if (aux.getData().equals(x)) {
+					x.aumentarStockVacuna(cant);
+				}
+		}
+		else {
+			System.out.println("No se encontro");
+		}
+	}
+	
+	public void disminuirStock(Vacuna x, int cant) {
+		Node<Vacuna> aux = inventarioVacuna.getFirst();
+		int busqueda = inventarioVacuna.search(x);
+		if (busqueda != -1) {
+			for(int i = 0 ;aux != null ; aux =aux.getNext(),i++) 
+				if (aux.getData().equals(x)) {
+					x.disminuirStockVacuna(cant);
+				}
+		}
+		else {
+			System.out.println("No se encontro");
 		}	
 	}
 	
-	private Node<Vacuna> getLastNode(){
-		Node<Vacuna> aux = this.first;
-		while (aux.getNext()!=null)
-			aux = aux.getNext();
-		return aux;
+	public void insertarVacuna(Vacuna x) {
+		inventarioVacuna.insertLast(x);
 	}
 	
 	public void borrarVacuna(Vacuna x) {
-		Node<Vacuna> aux = this.first;
-		Node<Vacuna> anterior = null;
-		Node<Vacuna> actual = null;
-		Node<Vacuna> siguiente = null;
-		int pocisionX = 0;
-		if (buscarVacuna(x) != -1 ) {
-			System.out.println("Se borrara el elemento " + x);
-			pocisionX = buscarVacuna(x);
-			int posicionAnterior = pocisionX - 1;
-			int posicionSiguiente = pocisionX + 1;
-					
-			for(int i =  0 ; aux!=null ; aux = aux.getNext(),i++) {
-				if ( i == pocisionX ) 
-					actual = aux;
-				if ( i == posicionAnterior ) 
-					anterior = aux;
-				if ( i == posicionSiguiente ) 
-					siguiente = aux;
-			}
-			if (pocisionX == 0) {
-				this.first=siguiente;
-				this.count--;
-			}
-			else {
-				if (pocisionX == this.length()-1) {
-					anterior.setNext(null);
-					this.count--;
-				}
-				else {
-					anterior.setNext(siguiente);
-					this.count--;
-				}
-			}
-			actual = null;
-		}
-		else
-			System.out.println("NO SE BORRO EL ELEMENTO -> " + x  + " <- YA QUE NO SE ENCONTRO");
-		
+		inventarioVacuna.remove(x);
 	}
+	
 	public void reporteGeneral() {
 		toString();
-		
-	}
-
-	public int buscarVacuna(Vacuna x) {
-		Node<Vacuna> aux = this.first;
-		for(int i = 0 ;aux != null ; aux =aux.getNext(),i++) 
-			if (aux.getData().equals(x))
-				return i;
-		return -1;
-	}
 	
+	}
+	// 
+	public int buscarVacuna(Vacuna x) {
+		int contador  = inventarioVacuna.search(x);
+		if (contador != -1) {
+			return contador;
+		}
+		else {
+			System.out.println("No se encontro");
+			return -1;
+		}
+	}
 	
 	public boolean isEmptyList() {
-		return this.first == null;
+		return inventarioVacuna.isEmptyList();
 	}
 	
-	public int length(){
-		return this.count;
+	public int cantidadVacunas(){
+		return inventarioVacuna.length();
 	}
 	
 	public String toString() {
 		String str="";
-		Node<Vacuna> aux = this.first;
+		Node<Vacuna> aux = inventarioVacuna.getFirst();
 		for(int i =  0 ; aux!=null ; aux = aux.getNext(),i++)
-			str +="[" +i+"] = "+aux.getData()+"\n";
+			str += aux.toString() + "\n";
 		return str;
 	}
 	
-
 }
-
 
