@@ -28,6 +28,7 @@ public class RegistroPaciente extends JFrame implements Registro, ActionListener
 	private JTextField tf1,tf2,tf3,tf4,tf5, tf6;
 	
 	public RegistroPaciente() {
+		JPanel barraTitulo = new javax.swing.JPanel();
 		this.setTitle("SAVA - Registro Paciente");
 		//etiquetas
 		setLayout(null);
@@ -65,11 +66,15 @@ public class RegistroPaciente extends JFrame implements Registro, ActionListener
 		//botones
 		boton1= new JButton("Salir");
 		boton1.setBounds(70,290,100,30);
+		boton1.setForeground(Color.white);
+		boton1.setBackground(Color.decode("#418325"));
 		add(boton1);
 		boton1.addActionListener(this);
 
 		boton2= new JButton("Registrar");
 		boton2.setBounds(220,290,100,30);
+		boton2.setForeground(Color.white);
+		boton2.setBackground(Color.decode("#418325"));
 		add(boton2);
 		boton2.addActionListener(this);
 		
@@ -126,6 +131,8 @@ public class RegistroPaciente extends JFrame implements Registro, ActionListener
 	
 	public void registrar() {
 		this.setBounds(0,0,400,400);
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		this.getContentPane().setBackground(Color.decode("#d2fdbc"));
 		this.setVisible(true);
 		this.setResizable(false); // deja o no que el ususario modifique la ventana
 		this.setLocationRelativeTo(null);
@@ -135,15 +142,13 @@ public class RegistroPaciente extends JFrame implements Registro, ActionListener
 				return true;
 		return false;
 	}
-	
-	
+		
+	//verificaciones de datos
 	private boolean verificarNom(String nombre) {
 		if(!verificarText(nombre,"Nombre"))
 			return false;
 		return true;
 	}
-	
-	//verificaciones de datos
 	private boolean verificarApellido(String apellido) {
 		int opc=0;
 		int contPal=0; //cuenta palabras
@@ -188,10 +193,8 @@ public class RegistroPaciente extends JFrame implements Registro, ActionListener
 		return true;
 	}
 	private boolean verificarDistrito(String distrito) {
-		if(distrito.length()==0) {
-			JOptionPane.showMessageDialog(null,"Error Distrito: campo vacio");
+		if(!verificarText(distrito,"Distrito"))
 			return false;
-		}
 		return true;
 	}
 	private boolean verificarTel(String telefono) {

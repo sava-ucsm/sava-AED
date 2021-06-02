@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Scanner;
@@ -10,6 +11,7 @@ import javax.swing.JTextField;
 
 public class RegistroPersonalSalud extends JFrame implements Registro, ActionListener {
 	//labels
+		private Local ref;
 		private JLabel label1;
 		private JLabel label2;
 		private JLabel label3;
@@ -21,7 +23,9 @@ public class RegistroPersonalSalud extends JFrame implements Registro, ActionLis
 		//TextField
 		private JTextField tf1,tf2,tf3,tf4;
 		
-		public RegistroPersonalSalud() {
+		public RegistroPersonalSalud(Local ref) {
+			this.ref= ref;
+			
 			this.setTitle("SAVA - Registro Personal de Salud");
 			//etiquetas
 			setLayout(null);
@@ -50,13 +54,17 @@ public class RegistroPersonalSalud extends JFrame implements Registro, ActionLis
 			
 			
 			//botones
-			boton1= new JButton("Salir");
+			boton1= new JButton("Regresar");
 			boton1.setBounds(70,290,100,30);
+			boton1.setForeground(Color.white);
+			boton1.setBackground(Color.decode("#418325"));
 			add(boton1);
 			boton1.addActionListener(this);
 
 			boton2= new JButton("Registrar");
 			boton2.setBounds(220,290,100,30);
+			boton2.setForeground(Color.white);
+			boton2.setBackground(Color.decode("#418325"));
 			add(boton2);
 			boton2.addActionListener(this);
 			
@@ -88,8 +96,8 @@ public class RegistroPersonalSalud extends JFrame implements Registro, ActionLis
 				if(this.verificarNom(nombre) && this.verificarApellido(apellido)
 			    && this.verificarDni(dni) && verificarEspecialidad(especialidad)) {
 					PersonalSalud ps=new PersonalSalud(nombre,apellido,dni,especialidad);
-					if(!this.existeRegistro(ps))
-						Local.agregarPersonal(ps);
+					if(!this.existeRegistro(ps)) 
+						ref.agregarPersonal(ps);
 					else {
 						
 						JOptionPane.showMessageDialog(null,"Error: la persona ya esta registrada");
@@ -101,7 +109,8 @@ public class RegistroPersonalSalud extends JFrame implements Registro, ActionLis
 	
 
 	public void registrar() {
-		
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		this.getContentPane().setBackground(Color.decode("#d2fdbc"));
 		this.setBounds(0,0,400,400);
 		this.setVisible(true);
 		this.setResizable(false); // deja o no que el ususario modifique la ventana
@@ -110,7 +119,7 @@ public class RegistroPersonalSalud extends JFrame implements Registro, ActionLis
 	}
 	
 	public boolean existeRegistro(Persona p) {
-		if(Local.getPersonal((PersonalSalud)p)!=null)
+		if(ref.getPersonal((PersonalSalud)p)!=null)
 			return true;
 		return false;
 	}
