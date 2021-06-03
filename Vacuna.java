@@ -1,11 +1,11 @@
 
 public class Vacuna implements Comparable <Vacuna> {
 	String marca;
-	double efectividad, temperaturaPromedio;
+	int efectividad, temperaturaPromedio;
 	int cantidad, numDosis;
 	Fecha fechaES;
 
-	public Vacuna(String marca, double efectividad, int cantidad, double temperaturaPromedio, int numDosis) {
+	public Vacuna(String marca, int efectividad, int cantidad, int temperaturaPromedio, int numDosis) {
 		super();
 		this.marca = marca;
 		this.efectividad = efectividad;
@@ -17,11 +17,11 @@ public class Vacuna implements Comparable <Vacuna> {
 	public String getMarca() {		return marca;	}
 	public void setMarca(String marca) {	this.marca = marca; 	}
 	public double getEfectividad() {	return efectividad; 	}
-	public void setEfectividad(double efectividad) { 	this.efectividad = efectividad; 	}
+	public void setEfectividad(int efectividad) { 	this.efectividad = efectividad; 	}
 	public int getCantidad() { 	return cantidad;	}
 	public void setCantidad(int cantidad) {	this.cantidad = cantidad;	}
 	public double getTemperaturaPromedio() {	return temperaturaPromedio; 	}
-	public void setTemperaturaPromedio(double temperaturaPromedio) {this.temperaturaPromedio = temperaturaPromedio; }
+	public void setTemperaturaPromedio(int temperaturaPromedio) {this.temperaturaPromedio = temperaturaPromedio; }
 	public int getNumDosis() {	return numDosis; 	}
 	public void setNumDosis(int numDosis) {	this.numDosis = numDosis;	}
 		
@@ -54,8 +54,8 @@ public class Vacuna implements Comparable <Vacuna> {
 	
 	public String toString() {
 		String str="";
-		str += "\t"+ this.marca + "\t\t"+ this.cantidad + "\t\t" + this.efectividad
-		+  "\t\t" + this.temperaturaPromedio + "\t\t" + this.numDosis+"\n";
+		str += "\t"+ this.marca + "\t\t    "+ this.cantidad + "\t\t   " + this.efectividad
+		+  "%\t\t    " + this.temperaturaPromedio + "°\t\t    " + this.numDosis+"\n";
 		return str;
 	}
 	
