@@ -34,10 +34,15 @@ public class Local {
     public Direccion getDireccion(){
         return this.direccion;
     }
+    public boolean buscar(PersonalSalud p){
+        if(this.personal.search(p)==0) return false;
+        else return true;
+    }
+
     public PersonalSalud getPersonal(int codigo){
         PersonalSalud p = findByCode(codigo);
-        System.out.println(this.personal.search(p));
-        return null;
+        //System.out.println(this.personal.search(p));
+        return p;
     }
     private PersonalSalud findByCode(int codigo){
         Node<PersonalSalud> aux = personal.getFirst();
