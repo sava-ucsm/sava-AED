@@ -1,36 +1,64 @@
-//BOX
+
 public class Vacuna implements Comparable <Vacuna> {
 	String marca;
-	double efectividad;
-	int cantidad;
-	double temperaturaPromedio;
-	int numDosis;
-	Fecha fecha;
-	
-	public Vacuna(String marca, double efectividad, int cantidad, double temperaturaPromedio, int numDosis,
-			Fecha fecha) {
+	int efectividad, temperaturaPromedio;
+	int cantidad, numDosis;
+	Fecha fechaES;
+
+	public Vacuna(String marca, int efectividad, int cantidad, int temperaturaPromedio, int numDosis) {
 		super();
 		this.marca = marca;
 		this.efectividad = efectividad;
 		this.cantidad = cantidad;
 		this.temperaturaPromedio = temperaturaPromedio;
 		this.numDosis = numDosis;
-		this.fecha = fecha;
 	}
-	public void aumentarStock(int cant ) {
+	
+	public String getMarca() {		return marca;	}
+	public void setMarca(String marca) {	this.marca = marca; 	}
+	public double getEfectividad() {	return efectividad; 	}
+	public void setEfectividad(int efectividad) { 	this.efectividad = efectividad; 	}
+	public int getCantidad() { 	return cantidad;	}
+	public void setCantidad(int cantidad) {	this.cantidad = cantidad;	}
+	public double getTemperaturaPromedio() {	return temperaturaPromedio; 	}
+	public void setTemperaturaPromedio(int temperaturaPromedio) {this.temperaturaPromedio = temperaturaPromedio; }
+	public int getNumDosis() {	return numDosis; 	}
+	public void setNumDosis(int numDosis) {	this.numDosis = numDosis;	}
+		
+	public void aumentarStockVacuna(int cant ) {		
 		this.cantidad = cantidad + cant;
+		fechaES.modificarFechaEntrada();
 	}
-	public void disminuirStock(int cant) {
+	
+	public void disminuirStockVacuna(int cant) {
 		this.cantidad = cantidad - cant;
 		if( this.cantidad <= 0) {
 			this.cantidad = 0;
 			System.out.println("Se agoto el stock de la Vacuna "+ marca);
 		}
+		else 
+			fechaES.modificarFechaSalida();
 	}
 	
-	public int compareTo(Vacuna o) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int compareTo(Vacuna vac2) {
+		int verificador = this.getMarca().compareTo(vac2.getMarca());
+		if(verificador >  0) {
+			return 1;
+		}else {
+			if ( verificador <  0)
+				return -1;
+			return 0;	
+		}
 	}
-
+	
+	
+	public String toString() {
+		String str="";
+		str += "\t"+ this.marca + "\t\t    "+ this.cantidad + "\t\t   " + this.efectividad
+		+  "%\t\t    " + this.temperaturaPromedio + "°\t\t    " + this.numDosis+"\n";
+		return str;
+	}
+	
+	
 }
+

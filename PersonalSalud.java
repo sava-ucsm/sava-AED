@@ -1,22 +1,20 @@
 
-public class PersonalSalud extends Persona{
-	private int idPersonal;//por defecto
+public class PersonalSalud  extends Persona{
+
+	private int idPersonal;			//crear por defecto cada vez que un personal salud
 	private String especialidad;
-	private String usuario;//por defecto
-	private String password;//por defecto 
+	private String usuario;			//por defecto
+	private String password;		//por defecto 
 	
-	//equals comparando id personal 
-	
-	
-	//nombre apellido dni especialidad
-	public PersonalSalud(String nombre, String apellido, String dni,int idPersonal, String especialidad, String usuario, String password) {
+	public PersonalSalud(String nombre, String apellido, String dni, String especialidad) {
 		super(nombre, apellido, dni);
-		this.idPersonal = idPersonal;
+		this.idPersonal = idPersonal;				// autogenerado
 		this.especialidad = especialidad;
-		this.usuario = usuario;
-		this.password = password;
+		// this.usuario = usuario;					// autogenerado
+		// this.password = password;				// autogenerado
 	}
-	
+	public PersonalSalud() {
+	}
 	public int getIdPersonal() {
 		return idPersonal;
 	}
@@ -40,6 +38,19 @@ public class PersonalSalud extends Persona{
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	//equals comparando id personal 
+	public boolean equals( Object b) {
+		if ( !( b instanceof PersonalSalud))
+			return false;
+		PersonalSalud p = (PersonalSalud) b;
+		return this.idPersonal==p.idPersonal && this.dni == p.dni;
+	}
+	@Override
+	public String toString() {
+		return "PersonalSalud [idPersonal=" + idPersonal + ", especialidad=" + especialidad + ", usuario=" + usuario
+				+ ", " + super.toString() + "]";
 	}
 	
 }

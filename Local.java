@@ -8,7 +8,7 @@ public class Local {
         this.direccion = d;
         this.nombre = nombre;
         this.almacen = new Inventario();
-        this.personal = new OderListLinked<PersonalSalud>();
+        this.personal = new OrderListLinked<PersonalSalud>();
     }
     public void agregarPersonal(PersonalSalud p){
 
