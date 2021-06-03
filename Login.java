@@ -1,4 +1,6 @@
 import javax.swing.*;
+
+import java.awt.Color;
 import java.awt.event.*;
 public class Login extends JFrame implements ActionListener {
 	private JLabel label1, label2;
@@ -8,6 +10,7 @@ public class Login extends JFrame implements ActionListener {
 	
 	
 	public Login() {
+		this.getContentPane().setBackground(Color.decode("#d2fdbc"));
 		setLayout(null);
 		label1 = new JLabel("Usuario: ");
 		label1.setBounds(10,10,100,30);
@@ -35,6 +38,7 @@ public class Login extends JFrame implements ActionListener {
 	
 	
 	public void actionPerformed(ActionEvent e) {
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		if(e.getSource() == BT1) {
 			String nombre="", contra="";
 			Usuario Us = new Usuario();
@@ -66,9 +70,11 @@ public class Login extends JFrame implements ActionListener {
 
 	public static void main(String[] args) {
 		
+		
 		Login login1 = new Login();
 		login1.setBounds(0,0,300,165);
 		login1.setVisible(true);
+		
 		
 		
 		

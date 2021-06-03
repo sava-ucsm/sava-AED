@@ -8,7 +8,7 @@ public class Principal extends JFrame implements ActionListener {
 	private JButton BtMostrarLisPac, BtRegisPac, BtVacun, BtMostrarStock, BtSalir;
 	
 	public Principal() {
-		
+		this.getContentPane().setBackground(Color.decode("#d2fdbc"));
 		setLayout(null);
 		labelBienvenida = new JLabel("BIENVENIDO A SAVA");
 		labelBienvenida.setBounds(95,0,500,50);
@@ -41,6 +41,7 @@ public class Principal extends JFrame implements ActionListener {
 		BtSalir.addActionListener(this);
 	}
 	public void actionPerformed(ActionEvent e) {
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		if(e.getSource()==BtSalir) {
 			Login login1 = new Login();
 			login1.setBounds(0,0,300,165);

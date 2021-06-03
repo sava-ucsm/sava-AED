@@ -9,7 +9,7 @@ public class MostrarStockVacunas extends JFrame implements ActionListener{
 	private JButton BT1;
 	
 	public MostrarStockVacunas() {
-		
+		this.getContentPane().setBackground(Color.decode("#d2fdbc"));
 		setLayout(null);
 		labelVacuna = new JLabel("Stock Vacunas");
 		labelVacuna.setBounds(120,0,500,50);
@@ -33,6 +33,7 @@ public class MostrarStockVacunas extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		
 		if(e.getSource()==BT1) {
+			this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 			Principal principal1 = new Principal();
 			principal1.setBounds(0,0,400,400);
 			principal1.setVisible(true);
