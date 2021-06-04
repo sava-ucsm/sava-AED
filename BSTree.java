@@ -48,8 +48,9 @@ public class BSTree<E extends Comparable<E>> {
 	// busca un elemento y retorna su informacion
 	public E search(E x) {
 		Node res = searchRec(x, this.root);
-		if (res==null)
-			System.out.println("El dato " + x + " no esta");
+		if (res==null) {
+			return null;
+		}
 		return res.data;
 	}
 	protected Node searchRec(E x, Node n){

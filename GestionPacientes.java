@@ -31,11 +31,15 @@ public class GestionPacientes {
 		
 	}
 	public boolean existe_paciente(String dni) {
-		Paciente res = null;
+		if(data.isEmpty()) {
+			return false;
+		}
+		Paciente res;
 		Paciente p = new Paciente();
 		p.setDni(dni);
-		
-			res = data.search(p);
+		if(data.search(p)==null)
+			return false;
+		else
 			return true;
 		
 	}

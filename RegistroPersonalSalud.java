@@ -85,7 +85,7 @@ public class RegistroPersonalSalud extends JFrame implements Registro, ActionLis
 		
 		public void actionPerformed(ActionEvent e) { 
 			if(e.getSource()== boton1) { //si el boton 1 se presiona hace
-				System.exit(0);
+				this.setVisible(false);
 			}
 			if(e.getSource()== boton2) {
 				String nombre=tf1.getText();
@@ -96,8 +96,14 @@ public class RegistroPersonalSalud extends JFrame implements Registro, ActionLis
 				if(this.verificarNom(nombre) && this.verificarApellido(apellido)
 			    && this.verificarDni(dni) && verificarEspecialidad(especialidad)) {
 					PersonalSalud ps=new PersonalSalud(nombre,apellido,dni,especialidad);
-					if(!this.existeRegistro(ps)) 
+					if(!this.existeRegistro(ps)) {
+						JOptionPane.showMessageDialog(null,"Registro con Exito");
 						ref.agregarPersonal(ps);
+						tf1.setText("");
+						tf2.setText("");
+						tf3.setText("");
+						tf4.setText("");
+						}
 					else {
 						
 						JOptionPane.showMessageDialog(null,"Error: la persona ya esta registrada");
@@ -119,7 +125,7 @@ public class RegistroPersonalSalud extends JFrame implements Registro, ActionLis
 	}
 	
 	public boolean existeRegistro(Persona p) {
-		if(ref.getPersonal((PersonalSalud)p)!=null)
+		if(ref.buscarPersonal((PersonalSalud)p))
 			return true;
 		return false;
 	}

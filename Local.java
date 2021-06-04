@@ -3,12 +3,20 @@ public class Local {
     private String nombre;
     private Inventario almacen;
     private  ListLinked<PersonalSalud> personal;
-
-    public Local(Direccion d,String nombre){
+    private GestionPacientes gp;
+    
+	public Local(Direccion d,String nombre){
+    	gp= new GestionPacientes();
         this.direccion = d;
         this.nombre = nombre;
         this.almacen = new Inventario();
         this.personal = new OrderListLinked<PersonalSalud>();
+        Vacuna vac1 = new Vacuna("Fizer", 15000 ,  3 ,75 , 3 );
+		Vacuna vac2 = new Vacuna("cura", 150 ,  3 ,75 , 9 );
+		Vacuna vac3 = new Vacuna("RC", 1500000 ,  1 ,75 , 2 );
+		almacen.insertarVacuna(vac1);
+		almacen.insertarVacuna(vac2);
+		almacen.insertarVacuna(vac3);
     }
     public void agregarPersonal(PersonalSalud p){
 
@@ -34,15 +42,14 @@ public class Local {
     public Direccion getDireccion(){
         return this.direccion;
     }
-    public boolean buscar(PersonalSalud p){
-        if(this.personal.search(p)==0) return false;
-        else return true;
+    public boolean buscarPersonal(PersonalSalud p) {
+    	  if(this.personal.search(p)==-1) return false;
+          else return true;
     }
-
     public PersonalSalud getPersonal(int codigo){
         PersonalSalud p = findByCode(codigo);
-        //System.out.println(this.personal.search(p));
-        return p;
+        System.out.println(this.personal.search(p));
+        return null;
     }
     private PersonalSalud findByCode(int codigo){
         Node<PersonalSalud> aux = personal.getFirst();
@@ -57,4 +64,7 @@ public class Local {
     public int validarPersonal(PersonalSalud p){
             return personal.search(p);
     }
+    public GestionPacientes getGestionPacientes() {
+		return gp;
+	}
 }

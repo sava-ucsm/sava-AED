@@ -1,3 +1,4 @@
+import javax.swing.JOptionPane;
 
 public class Paciente extends Persona implements Comparable<Paciente> {
 	
@@ -9,6 +10,7 @@ public class Paciente extends Persona implements Comparable<Paciente> {
 	private int dosis_recibidas=0;
 	private boolean est_salud;
    
+	
 	public Paciente(int idPaciente, String nombre, String apellido, String dni, String sexo, Direccion direccion,
 			int edad, Vacuna vacuna, int dosis_recibidas, boolean est_salud) {
 		super(nombre, apellido, dni);
@@ -23,6 +25,12 @@ public class Paciente extends Persona implements Comparable<Paciente> {
 	public Paciente() {
 		this.dosis_recibidas = 0;
 		this.est_salud = true;
+	}
+	public Paciente(String nombre, String apellido, String dni, Direccion dir, String telefono) {
+		super(nombre, apellido, dni);
+		this.direccion = direccion;
+		this.vacuna = new Vacuna("",0,0,0,0);
+		
 	}
 	public int getIdPaciente() {
 		return idPaciente;
@@ -67,10 +75,9 @@ public class Paciente extends Persona implements Comparable<Paciente> {
 		this.est_salud = est_salud;
 	}
 	public void recibir_dosis() {
-		if (dosis_recibidas<2)
+		if (dosis_recibidas<this.vacuna.getNumDosis())
 			dosis_recibidas++;
-		else
-			System.out.println("El paciente ya recibio las dos dosis");
+			
 	}
 	public int compareTo(Paciente p) {
 		return this.dni.compareTo(p.dni);
@@ -83,9 +90,7 @@ public class Paciente extends Persona implements Comparable<Paciente> {
 	}
 	@Override
 	public String toString() {
-		return "Paciente [ " + super.toString() + " idPaciente=" + idPaciente + ", sexo=" + sexo + ", edad=" + edad
-				+ ", dosis_recibidas=" + dosis_recibidas + ", est_salud=" + est_salud
-				+ "]";
+		return super.toString() + " idPaciente=" + this.idPaciente + " Vacuna recibida=" + this.vacuna.getMarca()+ " dosis_recibidas=" + this.dosis_recibidas;
 	}
 	
 	

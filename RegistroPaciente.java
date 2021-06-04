@@ -12,7 +12,7 @@ public class RegistroPaciente extends JFrame implements Registro, ActionListener
 	 boton primarios celete
 	 
 	*/
-	
+	GestionPacientes ref; 
 	//labels
 	private JLabel label1;
 	private JLabel label2;
@@ -27,7 +27,8 @@ public class RegistroPaciente extends JFrame implements Registro, ActionListener
 	//TextField
 	private JTextField tf1,tf2,tf3,tf4,tf5, tf6;
 	
-	public RegistroPaciente() {
+	public RegistroPaciente(GestionPacientes gp) {
+		ref= gp;
 		JPanel barraTitulo = new javax.swing.JPanel();
 		this.setTitle("SAVA - Registro Paciente");
 		//etiquetas
@@ -101,11 +102,9 @@ public class RegistroPaciente extends JFrame implements Registro, ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e) { //registra eventos que suceden en la interfaz como presionar un boton
 		if(e.getSource()== boton1) { //si el boton 1 se presiona hace
-			System.exit(0);
+			this.setVisible(false);
 		}
 		if(e.getSource()== boton2) {
-			
-			
 			String nombre=tf1.getText();
 			String apellido=tf2.getText();
 			String dni=tf3.getText();
@@ -118,8 +117,16 @@ public class RegistroPaciente extends JFrame implements Registro, ActionListener
 		    && this.verificarDni(dni) && this.verificarCiudad(ciudad) 
 		    &&this.verificarDistrito(distrito) && this.verificarTel(telefono)) {
 				Paciente p= new Paciente(nombre, apellido, dni,dir ,telefono);
-				if(!this.existeRegistro(p))
-					GestionPacientes.agregarPaciente(p);
+				if(!this.existeRegistro(p)) {
+					JOptionPane.showMessageDialog(null,"Registro con exito!");
+					ref.add_paciente(p);
+					tf1.setText("");
+					tf2.setText("");
+					tf3.setText("");
+					tf4.setText("");
+					tf5.setText("");
+					tf6.setText("");
+				}
 				else {
 					
 					JOptionPane.showMessageDialog(null,"Error: la persona ya esta registrada");
@@ -138,7 +145,7 @@ public class RegistroPaciente extends JFrame implements Registro, ActionListener
 		this.setLocationRelativeTo(null);
 	}
 	public boolean existeRegistro(Persona p){
-		if(GestionPacientes.buscar((Paciente)p))
+		if(ref.existe_paciente(p.getDni()))
 				return true;
 		return false;
 	}

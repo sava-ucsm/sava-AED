@@ -1,5 +1,5 @@
 
-public class PersonalSalud  extends Persona{
+public class PersonalSalud  extends Persona implements Comparable<PersonalSalud>{
 
 	private int idPersonal;			//crear por defecto cada vez que un personal salud
 	private String especialidad;
@@ -39,7 +39,10 @@ public class PersonalSalud  extends Persona{
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
+ //falta compare to
+	public int compareTo(PersonalSalud p) {
+		return this.idPersonal-p.getIdPersonal();
+	}
 	//equals comparando id personal 
 	public boolean equals( Object b) {
 		if ( !( b instanceof PersonalSalud))

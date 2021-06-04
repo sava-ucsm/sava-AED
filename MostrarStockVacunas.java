@@ -3,12 +3,13 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class MostrarStockVacunas extends JFrame implements ActionListener{
-
+	private Local reflocal;
 	private JLabel labelVacuna;
 	private JTextArea txtArea;
 	private JButton BT1;
-	
-	public MostrarStockVacunas() {
+	private JScrollPane scrollpane1;
+	public MostrarStockVacunas(Local reflocal) {
+		this.reflocal=reflocal;
 		this.getContentPane().setBackground(Color.decode("#d2fdbc"));
 		setLayout(null);
 		labelVacuna = new JLabel("Stock Vacunas");
@@ -25,19 +26,21 @@ public class MostrarStockVacunas extends JFrame implements ActionListener{
 		setLayout(null);
 		
 		txtArea = new JTextArea();
-		txtArea.setBounds(35,80,300,230);
-		txtArea.setText("Pfizer 50000-Efectividad 2000");
-	    add(txtArea);
+		txtArea.setText(reflocal.getInventario().toString());
 	    txtArea.setEditable(false);
+	    scrollpane1 = new JScrollPane(txtArea);
+		scrollpane1.setBounds(35,80,300,230);//(x,y,ancho,alto)
+		add(scrollpane1);
 	}
 	public void actionPerformed(ActionEvent e) {
 		
 		if(e.getSource()==BT1) {
 			this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-			Principal principal1 = new Principal();
-			principal1.setBounds(0,0,400,400);
+			Principal principal1 = new Principal(reflocal);
+			principal1.setBounds(0,0,400,500);
 			principal1.setVisible(true);
-			this.setVisible(false);;
+			principal1.setLocationRelativeTo(null);
+			this.setVisible(false);
 
 		}
 		

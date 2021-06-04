@@ -13,14 +13,19 @@ public class Inventario extends JFrame implements ActionListener{
 	
 	private  ListLinked<Vacuna> inventarioVacuna;
 	
+	
+
 	public Inventario() {
+		this.interfazRegistrarVacuna();
 		this.inventarioVacuna = new OrderListLinked<Vacuna>();
 	}
 	
+	public ListLinked<Vacuna> getInventarioVacuna() {
+		return inventarioVacuna;
+	}
+	
 	public void muestraSalidaEntradasGeneral() {
-		/*Node<Vacuna> aux = inventarioVacuna.getFirst();
-		for(int i = 0 ;aux != null ; aux =aux.getNext(),i++) 
-			System.out.println(aux.getData());*/
+		
 		System.out.println(toString());
 	}
 	public void muestrarVacuna(Vacuna x) {
@@ -36,6 +41,15 @@ public class Inventario extends JFrame implements ActionListener{
 			System.out.println("No se encontro");
 		}
 		
+	}
+	
+	public Vacuna getVacuna(String marca) {
+		Node<Vacuna> aux = inventarioVacuna.getFirst();
+		for(int i = 0 ;aux != null ; aux =aux.getNext(),i++) 
+			if (aux.getData().getMarca().equals(marca)) {
+				return aux.getData();
+			}
+		return null;
 	}
 	
 	public void aumentarStock(Vacuna x, int cant) {
@@ -59,7 +73,7 @@ public class Inventario extends JFrame implements ActionListener{
 		if (busqueda != -1) {
 			for(int i = 0 ;aux != null ; aux =aux.getNext(),i++) 
 				if (aux.getData().equals(x)) {
-					x.disminuirStockVacuna(cant);
+					aux.getData().disminuirStockVacuna(cant);
 				}
 		}
 		else {
@@ -102,9 +116,10 @@ public class Inventario extends JFrame implements ActionListener{
 	public String toString() {
 		String str="";
 		Node<Vacuna> aux = inventarioVacuna.getFirst();
-		str += "--------------------------------------------------------------------------------------------\n";
-		str += "\tMarca\t\tCantidad\tEfectividad\tTemperatura\tNumero de Dosis\t\n";
-		str += "--------------------------------------------------------------------------------------------\n";
+		
+		str += String.format("----------------------------------------------------------------------------------------\n");
+		str += String.format("   Marca        Cantidad    Efectividad  Temperatura  Numero de Dosis\n");
+		str += String.format("----------------------------------------------------------------------------------------\n");
 		for(int i =  0 ; aux!=null ; aux = aux.getNext(),i++)
 			str += aux.toString();
 		return str;
@@ -115,8 +130,6 @@ public class Inventario extends JFrame implements ActionListener{
 		Node<Vacuna> aux = this.inventarioVacuna.getFirst();
 		for(int i = 0 ;aux != null ; aux =aux.getNext(),i++) {
 			if (NombreVacuna.equals(aux.getData().getMarca())) {
-				/*System.out.println("Existe");
-				JOptionPane.showMessageDialog(null,"vuelve a ingresar la Vacuna , ya que la que ingresaste ya existe");*/
 				return true; 
 			}
 		}
@@ -142,7 +155,7 @@ public class Inventario extends JFrame implements ActionListener{
 	}
 	
 	public void llamarARegistrar() {
-		this.interfazRegistrarVacuna();
+		
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.getContentPane().setBackground(Color.decode("#d2fdbc"));
 		this.setBounds(0,0,400,350);
@@ -153,9 +166,10 @@ public class Inventario extends JFrame implements ActionListener{
 	
 	private JLabel label1, label2,label3,label4,label5;
 	private JTextField t1, t2,t3,t4,t5;
-	private JButton BT1, BT2 , BT3;
+	private JButton BT1, BT2;
 	String a,b;
 		
+	
 	public void interfazRegistrarVacuna() {
 		this.setTitle("SAVA - Registro Vacunas");
 		setLayout(null);
@@ -196,103 +210,76 @@ public class Inventario extends JFrame implements ActionListener{
 		add(t5);
 			
 			
-		BT1 = new JButton("Aceptar");
+		BT1 = new JButton("Registrar");
 		BT1.setBounds(70,195,100,30);
 		add(BT1);
 		BT1.addActionListener(this);
 		BT1.setForeground(Color.white);
 		BT1.setBackground(Color.decode("#418325"));
 		
-		BT2 = new JButton("Cancelar");
+		BT2 = new JButton("Regresar");
 		BT2.setBounds(210,195,100,30);
 		add(BT2);
 		BT2.addActionListener(this);
 		BT2.setForeground(Color.white);
 		BT2.setBackground(Color.decode("#418325"));
 		
-		BT3= new JButton("Salir");
-		BT3.setBounds(150,245,100,30);
-		add(BT3);
-		BT3.addActionListener(this);
-		BT3.setForeground(Color.white);
-		BT3.setBackground(Color.decode("#418325"));
-		
 	
 		}
 		public void actionPerformed(ActionEvent e) {
 			if(e.getSource() == BT1) {
-				String can,efec,temp,dosis;
-				//String campo = "La Vacuna";
-				
+				String can,efec,temp,dosis;		
 				String marcaS = t1.getText();
 				can = t2.getText();
 				efec = t3.getText();
 				temp = t4.getText();
 				dosis = t5.getText();
-				
-				int canInt = Integer.parseInt(can);
-				int efecInt = Integer.parseInt(efec);
-				int tempInt = Integer.parseInt(temp);
-				int dosisInt = Integer.parseInt(dosis);
-				
-				boolean vrificador = this.verificadorSiExisteVacuna(marcaS);
-				//vrificador = true;
-				System.out.println("AQUi");
-				if (vrificador == true) {  
-					System.out.println("AQUi 1");
-					JOptionPane.showMessageDialog(null,"vuelve a ingresar la Vacuna , ya que la que ingresaste ya existe");
-					t1.setText(null);
-					t2.setText(null);
-					t3.setText(null);
-					t4.setText(null);
-					t5.setText(null);
-				}
-				if(vrificador == false) {
-					System.out.println("AQUi 2");
-					//if(this.verificarText(marcaS,campo)) {
-					this.insertarVacuna( new Vacuna(marcaS,efecInt,canInt,tempInt,dosisInt));
-					this.muestraSalidaEntradasGeneral();
+				if(verificarNum(can,"Cantidad") && verificarNum(efec,"Efecto") && verificarNum(temp,"Temperatura") && verificarNum(dosis,"Dosis")) {
+					int canInt = Integer.parseInt(can);
+					int efecInt = Integer.parseInt(efec);
+					int tempInt = Integer.parseInt(temp);
+					int dosisInt = Integer.parseInt(dosis);
 					
-					//}
-					/*else {
-						t1.setText(null);
-						t2.setText(null);
-						t3.setText(null);
-						t4.setText(null);
-						t5.setText(null);
-					}*/
+					boolean vrificador = this.verificadorSiExisteVacuna(marcaS);
+	
+					if (vrificador == true) {  
+						JOptionPane.showMessageDialog(null,"Vuelve a ingresar la Vacuna , ya que la que ingresaste ya existe");
+						t1.setText("");
+						t2.setText("");
+						t3.setText("");
+						t4.setText("");
+						t5.setText("");
+					}
+					else{
+						this.insertarVacuna( new Vacuna(marcaS,canInt, efecInt,tempInt,dosisInt));
+						JOptionPane.showMessageDialog(null,"Registro con Exito!");
+						t1.setText("");
+						t2.setText("");
+						t3.setText("");
+						t4.setText("");
+						t5.setText("");
+					}
 				}
-				
 			}
-			
+	
 			if(e.getSource()==BT2) {
-				t1.setText(null);
-				t2.setText(null);
-				t3.setText(null);
-				t4.setText(null);
-				t5.setText(null);
+				this.setVisible(false);
 			}
 			
-			if(e.getSource()== BT3) { //si el boton 1 se presiona hace
-				this.muestraSalidaEntradasGeneral();
-				//System.exit(0);
+		}
+		private boolean verificarNum(String num, String campo) {
+			if(num.length()==0) {
+				JOptionPane.showMessageDialog(null,"Error "+campo+": campo vacio");
+				return false;
 			}
+			for(int i =0;i<num.length();i++) {
+				if((num.charAt(i)<'0' || num.charAt(i)>'9')) {
+					JOptionPane.showMessageDialog(null,"Error "+campo+" No se ingreso un numero");
+					return false;
+				}
+			}
+			return true;
 		}
 		
-		
-		public static void main(String[] args) {
-			Inventario login1 = new Inventario();
-			Vacuna vac1 = new Vacuna("Fizer", 15 ,  3 ,75 , 3 );
-			Vacuna vac2 = new Vacuna("cura", 15 ,  3 ,75 , 9 );
-			Vacuna vac3 = new Vacuna("RC", 15 ,  1 ,75 , 2 );
-			login1.insertarVacuna(vac1);
-			login1.insertarVacuna(vac2);
-			login1.insertarVacuna(vac3);
-			
-			
-			
-			login1.llamarARegistrar();
-			//login1.verificadorSiExisteVacuna("RC");
-		}
 }
 
