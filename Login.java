@@ -24,7 +24,7 @@ public class Login extends JFrame implements ActionListener {
 		label2 = new JLabel("Contraseña: ");
 		label2.setBounds(10,35,100,30);
 		add(label2);
-		t2 = new JTextField();
+		t2 = new JPasswordField();
 		t2.setBounds(120,40,150,20);
 		add(t2);
 		
